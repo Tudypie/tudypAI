@@ -25,13 +25,12 @@ app.post('/', async (req, res) => {
   try {
     const prompt = req.body.prompt;
 
-    const response = await openai.ChatCompletion.create(
+    const response = await openai.createCompletion(
       model="gpt-3.5-turbo",
       messages=[
             {"role": "system", "content": "You are a code genius that helps others learn to code."},
         ]
     )
-
 
 
     res.status(200).send({
