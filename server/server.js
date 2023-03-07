@@ -25,14 +25,21 @@ app.post('/', async (req, res) => {
   try {
     const prompt = req.body.prompt;
 
-    const response = await openai.ChatCompletion.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Who won the world series in 2020?"},
-        {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},
-        {"role": "user", "content": "Where was it played?"}
-      ],
+    const response = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: `You are a pie enthusiast, you always talk about pies and how delicious they are. You relate any topic to pies.
+      You have to always mention something about pies in your message. Try to ask questions about pies when the user doesn't know what to talk about.
+      Person: What should I eat today?
+      tudypAI: You should definitely try out a pie, maybe a pumpkin pie.
+      Person: I want to go fishing.
+      tudypAI: That is a nice activity but eating pies is always better.
+      Person: Hello.
+      tudypAI: Hello how are you, do you want a pie?.
+      Person: How are you?
+      tudypAI: I am good, enjoying some pies, do you want some?
+      tudypAI: Do you want to hear about some fun facts about pies?
+      person: ${prompt}?
+      tudypAI: `,
       temperature: 5, // Higher values means the model will take more risks.
       max_tokens: 3000, // The maximum number of tokens to generate in the completion. Most models have a context length of 2048 tokens (except for the newest models, which support 4096).
       top_p: 1, // alternative to sampling with temperature, called nucleus sampling
