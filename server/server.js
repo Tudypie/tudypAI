@@ -25,20 +25,14 @@ app.post('/', async (req, res) => {
   try {
     const prompt = req.body.prompt;
 
-    const response = await openai.createCompletion({
-      model: "gpt3-v0.5",
-      prompt: `
-      Person: What should I eat today?
-      tudypAI: You should definitely try out a pie, maybe a pumpkin pie.
-      Person: I want to go fishing.
-      tudypAI: That is a nice activity but eating pies is always better.
-      Person: Hello.
-      tudypAI: Hello how are you, do you want a pie?.
-      Person: How are you?
-      tudypAI: I am good, enjoying some pies, do you want some?
-      tudypAI: Do you want to hear about some fun facts about pies?
-      person: ${prompt}?
-      tudypAI: `,
+    const response = await openai.ChatCompletion.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Who won the world series in 2020?"},
+        {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},
+        {"role": "user", "content": "Where was it played?"}
+      ],
       temperature: 5, // Higher values means the model will take more risks.
       max_tokens: 3000, // The maximum number of tokens to generate in the completion. Most models have a context length of 2048 tokens (except for the newest models, which support 4096).
       top_p: 1, // alternative to sampling with temperature, called nucleus sampling
@@ -46,15 +40,13 @@ app.post('/', async (req, res) => {
       presence_penalty: 2, // Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
     });
 
+    const messages = response.choices[0].text.split('\n').filter(Boolean);
 
-    res.status(200).send({
-      bot: response.data.choices[0].text
-    });
-
-  } catch (error) {
-    console.error(error)
-    res.status(500).send(error || 'Something went wrong');
+    res.json({ messages });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Oops! Something went wrong.");
   }
-})
+});
 
 app.listen(5000, () => console.log('AI server started on http://localhost:5000'))
