@@ -40,13 +40,14 @@ app.post('/', async (req, res) => {
       presence_penalty: 2, // Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
     });
 
-    const messages = response.choices[0].text.split('\n').filter(Boolean);
+    res.status(200).send({
+      bot: response.data.choices[0].text
+    });
 
-    res.json({ messages });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Oops! Something went wrong.");
+  } catch (error) {
+    console.error(error)
+    res.status(500).send(error || 'Something went wrong');
   }
-});
+})
 
 app.listen(5000, () => console.log('AI server started on http://localhost:5000'))
