@@ -25,7 +25,7 @@ app.post('/', async (req, res) => {
   try {
     const prompt = req.body.prompt;
 
-    const response = openai.ChatCompletion.create(
+    const response = await openai.ChatCompletion.create(
       model="gpt-3.5-turbo",
       messages=[
             {"role": "system", "content": "You are a code genius that helps others learn to code."},
