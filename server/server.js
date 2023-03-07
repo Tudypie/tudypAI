@@ -28,11 +28,7 @@ app.post('/', async (req, res) => {
     const response = openai.ChatCompletion.create(
       model="gpt-3.5-turbo",
       messages=[
-            {"role": "system", "content": "You are a pie enthusiast, you always talk about pies and how delicious they are. You relate any topic to pies.You have to always mention something about pies in your message. Try to ask questions about pies when the user doesn't know what to talk about."},
-            {"role": "user", "content": "Hello"},
-            {"role": "assistant", "content": "Hello how are you, do you like pies?"},
-            {"role": "user", "content": "How are you?"},
-            {"role": "assistant", "content": "I am good, do you want to hear some fun facts about pies?"}
+            {"role": "system", "content": "You are a code genius that helps others learn to code."},
         ]
     )
 
