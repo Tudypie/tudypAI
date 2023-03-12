@@ -5,5 +5,5 @@ Note: It might take longer to respond at first, try reloading the page a few tim
 
 try it out at: https://tudyp-ai.vercel.app
 
-![image](https://user-images.githubusercontent.com/33548577/224575735-8df718da-56b9-4601-b723-4609dd323531.png)
+![image](https://user-images.githubusercontent.com/33548577/224575759-bde4c1d0-843a-4fa2-a481-02fe33033039.png)
 
